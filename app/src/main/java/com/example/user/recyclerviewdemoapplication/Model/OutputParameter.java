@@ -23,15 +23,7 @@ public class OutputParameter {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public List<RowModel> getRowModels() {
         return rowModels;
-    }
-
-    public void setRowModels(List<RowModel> rowModels) {
-        this.rowModels = rowModels;
     }
 }

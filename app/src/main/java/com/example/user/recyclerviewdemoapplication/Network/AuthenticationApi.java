@@ -1,6 +1,7 @@
 package com.example.user.recyclerviewdemoapplication.Network;
 
 import com.example.user.recyclerviewdemoapplication.Model.OutputParameter;
+import com.example.user.recyclerviewdemoapplication.WebServiceConstants;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,6 +14,6 @@ import retrofit2.http.GET;
 
 public interface AuthenticationApi {
 
-    @GET("facts.json")
+    @GET(WebServiceConstants.FACTS)
     Call<OutputParameter> getAllPost();
 }

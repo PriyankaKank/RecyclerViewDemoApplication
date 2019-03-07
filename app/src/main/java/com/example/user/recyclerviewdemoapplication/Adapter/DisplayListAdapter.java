@@ -34,14 +34,13 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
         public final JustifiedTextView txt_content;
         public final ImageView image;
 
-
         public BlogAdapterViewHolder(View v) {
             super(v);
             mView = v;
 
-            txt_title = (TextView) mView.findViewById(R.id.txt_title);
-            txt_content = (JustifiedTextView) mView.findViewById(R.id.txt_content);
-            image = (ImageView) mView.findViewById(R.id.image);
+            txt_title =  mView.findViewById(R.id.txt_title);
+            txt_content =  mView.findViewById(R.id.txt_content);
+            image =  mView.findViewById(R.id.image);
         }
     }
 
@@ -56,14 +55,12 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
         return new BlogAdapterViewHolder(view);
     }
 
-    public void setData(List<RowModel> modelList) {
-        this.rowModelList =modelList;
-    }
-
     @Override
     public void onBindViewHolder(BlogAdapterViewHolder holder, final int position) {
 
         RowModel rowModel = rowModelList.get(position);
+
+        //If all data is null then hide that row.
         if(rowModel.getDescription() == null && rowModel.getTitle() == null && rowModel.getImageHref() == null) {
             view.setVisibility(View.GONE);
             view.getLayoutParams().height = 0;
@@ -84,7 +81,6 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
 
     @Override
     public int getItemCount() {
-
         return rowModelList.size();
     }
 }

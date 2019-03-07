@@ -85,16 +85,8 @@ public class DisplayListActivity extends AppCompatActivity {
                 recyclerView.setAdapter(displayListAdapter);
                 displayListAdapter.notifyDataSetChanged();
 
-                //set title to ActionBar which we get from web service
-               /* if (toolbar != null) {
-                    toolbar.setTitle(response.body().getTitle());
-                    setSupportActionBar(toolbar);
-                }*/
                 getSupportActionBar().setTitle(response.body().getTitle());
-
                 ShowProgress(false);
-
-
             }
 
             @Override
@@ -103,7 +95,6 @@ public class DisplayListActivity extends AppCompatActivity {
                 Log.d("myResponse:",  "MSG"+t.toString());
             }
         });
-
     }
 
     /**
@@ -115,7 +106,6 @@ public class DisplayListActivity extends AppCompatActivity {
         refreshLayout= findViewById(R.id.refresh_recycler_list);
     }
 
-
     /**
      *  To show or hide progress
      */
@@ -126,6 +116,5 @@ public class DisplayListActivity extends AppCompatActivity {
         }else {
             refreshLayout.setRefreshing(false);
         }
-
     }
 }

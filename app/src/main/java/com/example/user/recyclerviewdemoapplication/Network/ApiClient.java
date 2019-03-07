@@ -1,5 +1,7 @@
 package com.example.user.recyclerviewdemoapplication.Network;
 
+import com.example.user.recyclerviewdemoapplication.WebServiceConstants;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -10,7 +12,7 @@ public class ApiClient {
     public static Retrofit getClient() {
         if (retrofit==null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/")
+                    .baseUrl(WebServiceConstants.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
