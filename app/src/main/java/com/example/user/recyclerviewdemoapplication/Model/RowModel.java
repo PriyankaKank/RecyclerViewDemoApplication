@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  * @author Priyanka Gole
  * Model class for records.
  */
-public class Row {
+public class RowModel {
 
     @SerializedName("title")
     @Expose

@@ -5,11 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.user.recyclerviewdemoapplication.Model.OutputParameter;
-import com.example.user.recyclerviewdemoapplication.Model.Row;
+import com.example.user.recyclerviewdemoapplication.Model.RowModel;
 import com.example.user.recyclerviewdemoapplication.Network.ApiClient;
 import com.example.user.recyclerviewdemoapplication.Network.AuthenticationApi;
 import com.example.user.recyclerviewdemoapplication.Network.NetworkManager;
@@ -32,7 +33,8 @@ public class DisplayListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private DisplayListAdapter displayListAdapter;
     private SwipeRefreshLayout refreshLayout;
-    private List<Row> modelList;
+    private List<RowModel> modelList;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,12 +80,21 @@ public class DisplayListActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<OutputParameter> call, Response<OutputParameter> response) {
 
-                modelList = response.body().getRows();
+                modelList = response.body().getRowModels();
                 displayListAdapter = new DisplayListAdapter(modelList, DisplayListActivity.this);
                 recyclerView.setAdapter(displayListAdapter);
                 displayListAdapter.notifyDataSetChanged();
 
+                //set title to ActionBar which we get from web service
+               /* if (toolbar != null) {
+                    toolbar.setTitle(response.body().getTitle());
+                    setSupportActionBar(toolbar);
+                }*/
+                getSupportActionBar().setTitle(response.body().getTitle());
+
                 ShowProgress(false);
+
+
             }
 
             @Override
@@ -99,6 +110,7 @@ public class DisplayListActivity extends AppCompatActivity {
      *  To initialize components
      */
     private void init() {
+
         recyclerView = findViewById(R.id.recycler_list_view);
         refreshLayout= findViewById(R.id.refresh_recycler_list);
     }

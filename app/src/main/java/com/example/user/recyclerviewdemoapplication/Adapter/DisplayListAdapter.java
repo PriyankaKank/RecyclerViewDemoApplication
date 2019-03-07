@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.user.recyclerviewdemoapplication.Model.Row;
+import com.example.user.recyclerviewdemoapplication.Model.RowModel;
 import com.example.user.recyclerviewdemoapplication.R;
 import com.uncopt.android.widget.text.justify.JustifiedTextView;
 
@@ -24,8 +24,9 @@ import java.util.List;
 
 public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.BlogAdapterViewHolder> {
 
-    private List<Row> rowList;
+    private List<RowModel> rowModelList;
     private Context context;
+    private View view;
 
     public static class BlogAdapterViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
@@ -44,40 +45,46 @@ public class DisplayListAdapter extends RecyclerView.Adapter<DisplayListAdapter.
         }
     }
 
-    public DisplayListAdapter(List<Row> modelList, Context context) {
-        this.rowList = modelList;
+    public DisplayListAdapter(List<RowModel> modelList, Context context) {
+        this.rowModelList = modelList;
         this.context = context;
     }
 
     @Override
     public BlogAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_item, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_item, parent, false);
         return new BlogAdapterViewHolder(view);
     }
 
-    public void setData(List<Row> modelList) {
-        this.rowList=modelList;
+    public void setData(List<RowModel> modelList) {
+        this.rowModelList =modelList;
     }
 
     @Override
     public void onBindViewHolder(BlogAdapterViewHolder holder, final int position) {
-        holder.txt_title.setText(rowList.get(position).getTitle());
-        String description =  rowList.get(position).getDescription();
-        holder.txt_content.setText(description);
-        String img=rowList.get(position).getImageHref();
 
-        Glide.with(context).
-                load(img)
-                .thumbnail(0.5f)
-                .crossFade()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into( holder.image);
+        RowModel rowModel = rowModelList.get(position);
+        if(rowModel.getDescription() == null && rowModel.getTitle() == null && rowModel.getImageHref() == null) {
+            view.setVisibility(View.GONE);
+            view.getLayoutParams().height = 0;
+        }else{
+            holder.txt_title.setText(rowModel.getTitle());              //Set title
+            String description = rowModel.getDescription();
+            holder.txt_content.setText(description);                    //Set description
+            String img = rowModelList.get(position).getImageHref();
 
-        final Row mItem = rowList.get(position);
+            Glide.with(context).                                        //Set image
+                    load(img)
+                    .thumbnail(0.5f)
+                    .crossFade()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(holder.image);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return rowList.size();
+
+        return rowModelList.size();
     }
 }

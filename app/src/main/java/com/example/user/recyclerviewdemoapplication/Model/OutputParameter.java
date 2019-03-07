@@ -17,7 +17,7 @@ public class OutputParameter {
     private String title;
     @SerializedName("rows")
     @Expose
-    private List<Row> rows = null;
+    private List<RowModel> rowModels = null;
 
     public String getTitle() {
         return title;
@@ -27,11 +27,11 @@ public class OutputParameter {
         this.title = title;
     }
 
-    public List<Row> getRows() {
-        return rows;
+    public List<RowModel> getRowModels() {
+        return rowModels;
     }
 
-    public void setRows(List<Row> rows) {
-        this.rows = rows;
+    public void setRowModels(List<RowModel> rowModels) {
+        this.rowModels = rowModels;
     }
 }
